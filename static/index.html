@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wolof Translate</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1><span>Wolof</span> Translate</h1>
+    </header>
+
+    <main>
+        <div class="language-bar">
+            <div id="source-label" class="lang-tab active">French</div>
+            <div class="swap-container">
+                <button id="swap-btn" class="swap-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                </button>
+            </div>
+            <div id="target-label" class="lang-tab">Wolof</div>
+        </div>
+
+        <div class="translation-container">
+            <div class="input-side">
+                <textarea id="source-text" placeholder="Enter text"></textarea>
+            </div>
+            <div class="output-side">
+                <div id="target-text" class="output-text"></div>
+                <div id="loader" class="loader"></div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="translate-btn" class="translate-btn">Translate</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Powered by Wolof-NMT Project</p>
+        <p>Inspired by the work of <a href="https://github.com/Galsenaicommunity" target="_blank">GalsenAI Community</a></p>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

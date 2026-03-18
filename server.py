@@ -1,12 +1,19 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Optional
 import uvicorn
+import os
 from translator import FrenchWolofTranslator
 from config import ModelConfig
 from env_config import EnvConfig
 
 app = FastAPI(title="Wolof-NMT API")
+
+# Ensure static directory exists
+if not os.path.exists("static"):
+    os.makedirs("static")
 
 # Global translator variable
 translator = None
@@ -20,7 +27,7 @@ class TranslationResponse(BaseModel):
     translated_text: str
     source_lang: str
 
-@app.lifespan("startup")
+@app.on_event("startup")
 async def load_model():
     """Load the model into memory on startup."""
     global translator
@@ -34,6 +41,10 @@ async def load_model():
         print("Model loaded successfully!")
     except Exception as e:
         print(f"Error loading model: {e}")
+
+@app.get("/")
+async def read_index():
+    return FileResponse("static/index.html")
 
 @app.get("/health")
 def health():
@@ -61,6 +72,8 @@ async def translate(request: TranslationRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Mount the static directory for other assets if needed
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 if __name__ == "__main__":
-    # Note: On a t3.medium (4GB RAM), we must use only 1 worker
     uvicorn.run(app, host="0.0.0.0", port=8000)
